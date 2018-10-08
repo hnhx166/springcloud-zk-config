@@ -1,10 +1,15 @@
 package com.ghx.properties;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 //可以动态修改值,不需要重启
-@ConfigurationProperties(prefix = "com.xxx")
+//@ConfigurationProperties(prefix = "com.ghx.properties")
+//@ConfigurationProperties
+//@RefreshScope
 public class PropertiesBean {
 
-	
+//	@Value("${myid}")
+//	private String myid;
+//
+//	public String getMyid() {
+//		return myid;
+//	}
 }
