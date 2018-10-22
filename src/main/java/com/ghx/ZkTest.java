@@ -48,7 +48,7 @@ public class ZkTest {
 		// 删除节点
 		zk.delete("/zoo", -1);
 		System.out.println("查看节点是否被删除： ");
-		System.out.println("节点状态： [" + zk.exists("/zoo2", false) + "]");
+		System.out.println("节点状态： [" + zk.exists("/zoo", false) + "]");
 	}
 
 	private void ZKClose() throws InterruptedException {
