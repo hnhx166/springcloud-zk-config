@@ -63,7 +63,6 @@ public class ZkClusterPropertiesImport {
 		// it into
 		// defaultAcl
 		ArrayList<ACL> newDefault = new ArrayList<>();
-		// try {
 		JSONArray acls = (JSONArray) ((JSONObject) JSONObject.parse(jsonAcl)).get("acls");
 		for (Iterator it = acls.iterator(); it.hasNext();) {
 			JSONObject acl = (JSONObject) it.next();
@@ -97,10 +96,6 @@ public class ZkClusterPropertiesImport {
 			}
 			newDefault.add(new ACL(perms, new Id(scheme, id)));
 		}
-		// } catch (ParseException e) {
-		// // Throw it all the way up to the error handlers
-		// throw new RuntimeException("Unable to parse default ACL " + jsonAcl, e);
-		// }
 		defaultAcl = newDefault;
 	}
 
