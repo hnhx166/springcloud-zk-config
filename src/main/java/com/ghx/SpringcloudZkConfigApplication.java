@@ -22,16 +22,16 @@ public class SpringcloudZkConfigApplication {
 //	@Autowired
 //	PropertiesBean propertiesBean;
 	//
-	@Value("${myid}")
-	private String myid;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringcloudZkConfigApplication.class, args);
 	}
 	
+	@Value("${myid}")
+	private String myid;
+	
 	@RequestMapping("gg")
 	public String gg() {
-//		return propertiesBean.getMyid();
 		return myid;
 	}
 }
