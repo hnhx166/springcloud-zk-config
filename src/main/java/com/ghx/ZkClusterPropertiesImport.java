@@ -245,7 +245,7 @@ public class ZkClusterPropertiesImport {
 	public List<String> importFile() throws IOException {
 		
 		//获取classpath下边的文件
-		ClassPathResource classPathResource = new ClassPathResource("config.txt");
+		ClassPathResource classPathResource = new ClassPathResource("config-apis.txt");
 		classPathResource.getFile();
 		
 		InputStream fis = classPathResource.getInputStream();
