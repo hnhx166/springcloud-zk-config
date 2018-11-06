@@ -183,6 +183,40 @@ public class ZkClusterPropertiesImport {
 			}
 		}
 	}
+	
+	public void importDeleteData(List<String> importFile, ZooKeeper zk) throws InterruptedException, KeeperException {
+		for (String line : importFile) {
+			logger.debug("Importing line " + line);
+			// Delete Operation
+			if (line.startsWith("-")) {
+				String nodeToDelete = line.substring(1);
+				deleteNodeIfExists(nodeToDelete, zk);
+			} else {
+				int firstEq = line.indexOf('=');
+				int secEq = line.indexOf('=', firstEq + 1);
+
+				String path = line.substring(0, firstEq);
+				if ("/".equals(path)) {
+					path = "";
+				}
+				String name = line.substring(firstEq + 1, secEq);
+				String value = readExternalizedNodeValue(line.substring(secEq + 1));
+				String fullNodePath = path + "/" + name;
+
+				// Skip import of system node
+				if (fullNodePath.startsWith(ZK_SYSTEM_NODE)) {
+					logger.debug("Skipping System Node Import: " + fullNodePath);
+					continue;
+				}
+				boolean nodeExists = nodeExists(fullNodePath, zk);
+
+				if (nodeExists) {
+					deleteNodeIfExists(fullNodePath, zk);
+				}
+
+			}
+		}
+	}
 
 	private String readExternalizedNodeValue(String raw) {
 		return raw.replaceAll("\\\\n", "\n");
@@ -239,6 +273,7 @@ public class ZkClusterPropertiesImport {
 
 	private void deleteNodeIfExists(String path, ZooKeeper zk) throws InterruptedException, KeeperException {
 		zk.delete(path, -1);
+		System.out.println("删除节点后节点是否存在 : " + nodeExists(path, zk));
 	}
 	
 	//导入文件
@@ -280,7 +315,10 @@ public class ZkClusterPropertiesImport {
 		int sessionTimeout = 30 * 1000;
 		
 		ZkClusterPropertiesImport zkpi = new  ZkClusterPropertiesImport();
+		//导入数据
 		zkpi.importData(zkpi.importFile(), overwrite, zkpi.createZKConnection(connectUrl, sessionTimeout));
+		//导入删除数据
+		//zkpi.importDeleteData(zkpi.importFile(), zkpi.createZKConnection(connectUrl, sessionTimeout));
 	}
 
 }

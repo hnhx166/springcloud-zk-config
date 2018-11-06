@@ -1,4 +1,2 @@
-/config-zk/springcloud-zk-config/server=port=8088
-/config-zk/springcloud-zk-config=myid=testID22222333366667777777888888
-#/config-zk/springcloud-zk-config/management/security=enabled=false
-#/config-zk/springcloud-zk-config/management/endpoints/web/exposure=include=env,refresh
+/config-zk/springcloud-zk-config-dev/server=port=8088
+/config-zk/springcloud-zk-config-dev=myid=testID22222333366667777777888888

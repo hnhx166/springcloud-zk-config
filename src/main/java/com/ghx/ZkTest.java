@@ -34,21 +34,21 @@ public class ZkTest {
 
 	private void ZKOperations() throws IOException, InterruptedException, KeeperException {
 		// 创建节点
-		zk.create("/zoo", "myData".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+		//zk.create("/zoo", "myData".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 
 		// 获取节点数据
-		byte[] data = zk.getData("/zoo", this.wh, null);// 添加Watch
-		System.out.println(new String(data));
+		//byte[] data = zk.getData("/zoo", this.wh, null);// 添加Watch
+		//System.out.println(new String(data));
 		
 		// 修改节点
-		zk.setData("/zoo", "myDataUpdte".getBytes(), -1); // 这里再次进行修改，则不会触发Watch事件，这就是我们验证ZK的一个特性“一次性触发”，也就是说设置一次监视，只会对下次操作起一次作用。
+		//zk.setData("/zoo", "myDataUpdte".getBytes(), -1); // 这里再次进行修改，则不会触发Watch事件，这就是我们验证ZK的一个特性“一次性触发”，也就是说设置一次监视，只会对下次操作起一次作用。
 
-		System.out.println(new String(zk.getData("/zoo", false, null)));
-		
+		//System.out.println(new String(zk.getData("/zoo", false, null)));
+		System.out.println("节点状态： [" + zk.exists("/config-zk", false) + "]");
 		// 删除节点
-		zk.delete("/zoo", -1);
+		zk.delete("/config-zk", -1);
 		System.out.println("查看节点是否被删除： ");
-		System.out.println("节点状态： [" + zk.exists("/zoo", false) + "]");
+		System.out.println("节点状态： [" + zk.exists("/config-zk", false) + "]");
 	}
 
 	private void ZKClose() throws InterruptedException {
